@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <style type = 'text/css'>
+
+    </style>
+</head>
+<body background="{{ url_for('static',filename='images/backgroud.png') }}" style="text-align:center;">
+    <h1>测试平台</h1>
+
+
+    <div style="text-align:center;">
+    {% for message in get_flashed_messages() %}
+        <div class='alert'>{{ message }}</div>
+    {% endfor %}
+<form action="{{ url_for('login') }}" method="post">
+    用户名<br>
+    <input type="text" name="username" required><br>
+    密码<br>
+    <input type="password" name="password" required><br>
+
+    <br><input class="btn btn-success" type="submit" name="submit" value="登录">
+</form>
+
+    </div>
+
+
+</body>
+</html>
