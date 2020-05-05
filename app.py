@@ -281,6 +281,8 @@ def run(id):
     category = case.category
 
 
+
+
     test = Test()
     if test.test_api(url=url,method=method,headers=headers,data=data,assertion=assertion) is True:
         case.state = '2'#2是测试通过，3是不通过，1是未测试
