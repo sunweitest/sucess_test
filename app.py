@@ -258,6 +258,8 @@ def addUser():
 @app.route('/help')
 @login_required
 def help():
+    if request.method='POST':
+        pass
     return render_template('help.html')
 
 
