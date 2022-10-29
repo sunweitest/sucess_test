@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Test Report </title>
+    <meta name="generator" content="HTMLTestRunner 1.0.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="{{ url_for('static',filename='/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="http://img.itest.info/popper.min1.14.7.js"></script>
+    <link href="{{ url_for('static',filename='/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="http://img.itest.info/seldom.css">
+
+    <style type="text/css" media="screen">
+    body {
+        font-family: verdana, arial, helvetica, sans-serif;
+        font-size: 80%;
+    }
+
+    table {
+        font-size: 100%;
+    }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    h1 {
+        font-size: 16pt;
+        color: gray;
+    }
+
+    pre {
+        background-color: #eef2f7;
+        padding-top: 10px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: rgba(119,129,295,.25);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #6c757d;
+    }
+
+    .heading {
+        margin-top: 20px;
+        margin-bottom: 1ex;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 23%;
+        float: left;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        box-shadow: 0px 0px 5px #000;
+    }
+
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 4ex;
+        margin-bottom: 6ex;
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 12pt;
+        width: 500px;
+    }
+
+    /* -- report ------------------------------------------------------------------------ */
+    .show_detail_line {
+        margin-left: 10px;
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+    .show_detail_button {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+        margin-left: 10px;
+        text-align: right;
+        margin-right: 15px;
+    }
+
+    .header_row {
+        font-weight: bold;
+        color: #606060;
+        border-top-width: 10px;
+        border-color: #d6e9c6;
+        font-size: 15px;
+    }
+
+    .total_row {
+        font-weight: bold;
+        background-color: #dee2e6;
+    }
+
+    .passClass {
+        background-color: #d6e9c6;
+    }
+
+    .failClass {
+        background-color: #faebcc;
+    }
+
+    .errorClass {
+        background-color: #ebccd1;
+    }
+
+    .passCase {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .failCase {
+        color: #c60;
+        font-weight: bold;
+    }
+
+    .errorCase {
+        color: #c00;
+        font-weight: bold;
+    }
+
+    .hiddenRow {
+        display: none;
+    }
+
+    .none {
+        color: #009900
+    }
+
+    .testcase {
+        margin-left: 2em;
+    }
+
+    /* -- chars ---------------------------------------------------------------------- */
+    .testChars {
+        width: 900px;
+        margin-left: 0px;
+    }
+
+    .error-color {
+        color: #fff;
+        background-color: #f44455;
+        border-color: #f44455;
+    }
+
+    .pass-color {
+        color: #fff;
+        background-color: #5fc27e;
+        border-color: #5fc27e;
+    }
+
+    .fail-color {
+        color: #fff;
+        background-color: #fcc100;
+        border-color: #fcc100;
+    }
+
+    .skip-color {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    /* -- screenshots ---------------------------------------------------------------------- */
+    .img {
+        height: 100%;
+        border-collapse: collapse;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        background-color: white;
+    }
+
+    .screenshots {
+        z-index: 100;
+        position: fixed;
+        max-height: 80%;
+        max-width: 80%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        box-shadow: 1px 2px 20px #333333;
+    }
+
+    .imgyuan {
+        height: 20px;
+        border-radius: 12px;
+        background-color: red;
+        padding-left: 13px;
+        margin: 0 auto;
+        position: relative;
+        top: -40px;
+        background-color: rgba(1, 150, 0, 0.3);
+    }
+
+    .imgyuan font {
+        border: 1px solid white;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        margin-right: 9px;
+        margin-top: 4px;
+        display: block;
+        float: left;
+        background-color: white;
+    }
+
+    .close_shots {
+        color: #fa5c7c;
+        background-color: rgba(250,92,124,.18);
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 22px;
+        z-index: 99;
+        width: 22px;
+        box-shadow: 1px 2px 5px #333333;
+    }
+
+    .footer {
+        height: 50px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+    }
+
+    @media screen and (max-width:1000px){
+        #parentContainer{
+            padding-bottom:300px
+        };
+    }
+
+    @media screen and (min-width:1000px){
+        #parentContainer{
+            padding-bottom:100px
+        };
+    }
+
+</style>
+</head>
+
+<body>
+    <script language="javascript" type="text/javascript">
+
+        function show_img(obj) {
+            var obj1 = obj.nextElementSibling
+            obj1.style.display = 'block'
+            var index = 0; //每张图片的下标，
+            var len = obj1.getElementsByTagName('img').length;
+            var imgyuan = obj1.getElementsByClassName('imgyuan')[0]
+            //var start=setInterval(autoPlay,500);
+            obj1.onmouseover = function () { //当鼠标光标停在图片上，则停止轮播
+                clearInterval(start);
+            }
+            obj1.onmouseout = function () { //当鼠标光标停在图片上，则开始轮播
+                start = setInterval(autoPlay, 1000);
+            }
+            for (var i = 0; i < len; i++) {
+                var font = document.createElement('font')
+                imgyuan.appendChild(font)
+            }
+            var lis = obj1.getElementsByTagName('font'); //得到所有圆圈
+            changeImg(0)
+            var funny = function (i) {
+                lis[i].onmouseover = function () {
+                    index = i
+                    changeImg(i)
+                }
+            }
+            for (var i = 0; i < lis.length; i++) {
+                funny(i);
+            }
+
+            function autoPlay() {
+                if (index > len - 1) {
+                    index = 0;
+                    clearInterval(start); //运行一轮后停止
+                }
+                changeImg(index++);
+            }
+            imgyuan.style.width = 30 * len + "px";
+            //对应圆圈和图片同步
+            function changeImg(index) {
+                var list = obj1.getElementsByTagName('img');
+                var list1 = obj1.getElementsByTagName('font');
+                for (i = 0; i < list.length; i++) {
+                    list[i].style.display = 'none';
+                    list1[i].style.backgroundColor = 'white';
+                }
+                list[index].style.display = 'block';
+                list1[index].style.backgroundColor = 'red';
+            }
+        }
+
+        function hide_img(obj) {
+            obj.parentElement.style.display = "none";
+            obj.parentElement.getElementsByClassName('imgyuan')[0].innerHTML = "";
+        }
+
+        output_list = Array();
+        /* level 
+        - 0:Summary; 
+        - 1:Failed; 
+        - 2:Skip; 
+        - 3:All 
+        */
+        function showCase(level, channel) {
+            trs = document.getElementsByTagName("tr");
+            for (var i = 0; i < trs.length; i++) {
+                tr = trs[i];
+                id = tr.id;
+                if (["ft", "pt", "et", "st"].indexOf(id.substr(0, 2)) != -1) {
+                    if (level == 0 && id.substr(2, 1) == channel) {
+                        tr.className = 'hiddenRow';
+                    }
+                }
+                if (id.substr(0, 3) == 'pt' + channel) {
+                    if (level == 1) {
+                        tr.className = '';
+                    }
+                    else if (level > 4 && id.substr(2, 1) == channel) {
+                        tr.className = '';
+                    }
+                    else {
+                        tr.className = 'hiddenRow';
+                    }
+                }
+                if (id.substr(0, 3) == 'ft' + channel) {
+                    if (level == 2) {
+                        tr.className = '';
+                    }
+                    else if (level > 4 && id.substr(2, 1) == channel) {
+                        tr.className = '';
+                    }
+                    else {
+                        tr.className = 'hiddenRow';
+                    }
+                }
+                if (id.substr(0, 3) == 'et' + channel) {
+                    if (level == 3) {
+                        tr.className = '';
+                    }
+                    else if (level > 4 && id.substr(2, 1) == channel) {
+                        tr.className = '';
+                    }
+                    else {
+                        tr.className = 'hiddenRow';
+                    }
+                }
+                if (id.substr(0, 3) == 'st' + channel) {
+                    if (level == 4) {
+                        tr.className = '';
+                    }
+                    else if (level > 4 && id.substr(2, 1) == channel) {
+                        tr.className = '';
+                    }
+                    else {
+                        tr.className = 'hiddenRow';
+                    }
+                }
+            }
+        }
+        function showClassDetail(cid, count) {
+            var id_list = Array(count);
+            var toHide = 1;
+            for (var i = 0; i < count; i++) {
+                tid0 = 't' + cid.substr(1) + '.' + (i + 1);
+                tid = 'f' + tid0;
+                tr = document.getElementById(tid);
+                if (!tr) {
+                    tid = 'p' + tid0;
+                    tr = document.getElementById(tid);
+                }
+                if (!tr) {
+                    tid = 'e' + tid0;
+                    tr = document.getElementById(tid);
+                }
+                if (!tr) {
+                    tid = 's' + tid0;
+                    tr = document.getElementById(tid);
+                }
+                id_list[i] = tid;
+                if (tr.className) {
+                    toHide = 0;
+                }
+            }
+            for (var i = 0; i < count; i++) {
+                tid = id_list[i];
+                if (toHide) {
+                    document.getElementById(tid).className = 'hiddenRow';
+                }
+                else {
+                    document.getElementById(tid).className = '';
+                }
+            }
+        }
+        function showTestDetail(div_id) {
+            var details_div = document.getElementById(div_id)
+            var displayState = details_div.style.display
+
+            if (displayState != 'block') {
+                displayState = 'block'
+                details_div.style.display = 'block'
+            }
+            else {
+                details_div.style.display = 'none'
+            }
+        }
+        function html_escape(s) {
+            s = s.replace(/&/g, '&amp;');
+            s = s.replace(/</g, '&lt;');
+            s = s.replace(/>/g, '&gt;');
+            return s;
+        }
+    </script>
+
+    <nav class="navbar navbar-expand navbar-light bg-dark">
+    <a class="sidebar-toggle d-flex mr-2">
+        <i class="hamburger align-self-center"></i>
+    </a>
+    <h1 style="margin-bottom: 0px; color: azure;"></h1>
+    <div class="navbar-collapse collapse">
+        <input class="submit btn btn-default" type="button" style="margin-top:10px;height:28px;padding:0px;background-color:#f90;color:#000000;" value="返回" onclick="location.href='{{ url_for ('report.report_manage')}}'" >
+        <ul class="navbar-nav ml-auto">
+            <h3 style="float: right; color: azure;"> 质量报告</h3>
+        </ul>
+    </div>
+</nav>
+
+<div id="parentContainer" class="container-fluid mm-active" style="padding-left: 35px;padding-right: 35px; padding-right: 35px;">
+    <div style="height: 260px; margin-top: 20px;">
+        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+            <div class="col-12 col-lg-5 col-xl-3 d-flex" style="float:left">
+                <div class='card flex-fill'>
+                    <div class="card-body my-2">
+                        <h3 class="header-title">预览</h3>
+                        <table class="table my-0">
+                            <tbody>
+                                {% for report in report %}
+                                <tr>
+                                    <td> 开始</td>
+                                    <td class="text-right">{{ report.create_time }}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td> 总时长</td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td> 状态</td>
+                                    <td class="text-right">{{ report.status }}</td>
+                                </tr>
+                                
+                               <tr>
+                                    <td> 用例总数</td>
+                                    <td class="text-right">{{ report.status }}</td>
+                                </tr>
+
+                                                                <tr>
+                                    <td> 通过</td>
+                                    <td class="text-right">{{ report.test_success }}</td>
+                                </tr>
+                                <tr>
+                                    <td>不通过</td>
+                                    <td class="text-right">{{ report.test_fail }}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                            {% endfor %}
+            <div class="col-xl-3 col-lg-6 order-lg-1">
+                <div class="card-body">
+                    <div class="testChars" style="width: 230px; height: 200px;">
+                        <canvas id="myChart" width="250" height="250"></canvas>
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+<div class="show_detail_line">
+    <p class="show_detail_button">
+        <a href='javascript:showCase(0, 1)' class="btn btn-dark btn-sm">全部</a>
+        <a href='javascript:showCase(1, 1)' class="btn btn-success btn-sm">已通过</a>
+        <a href='javascript:showCase(2, 1)' class="btn btn-warning btn-sm">不通过</a>
+
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="搜索类别">
+    </p>
+</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="table" class="table table-responsive-md btn-sm">
+                                        <thead style="text-align:left;">
+                                            <tr>
+                                                <th>记录序号</th>
+                                                <th>用例id</th>
+                                                <th>用例名称</th>
+                                                <th style="text-align:center;">测试状态</th>
+                                                <th class="time" style="text-align:center;">测试时间</th>
+                                                <th style="text-align:center;">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align:left;">
+                                            {% for record in record %}
+                                            <tr>
+                                                <td style="vertical-align:middle;text-align:center;">{{ record.id }}</td>
+                                               <td style="vertical-align:middle;text-align:center;">{{ record.case_id }}</td>
+
+                                                <td style="vertical-align:middle;">{{ record.case_name }}</td>
+
+                                                {% if record.state == '1' %}
+                                                    <td style="vertical-align:middle;text-align:center;"><button type="button" class="btn btn-default btn-sm">未执行</button></td>
+                                                {% elif record.state == '2' %}
+                                                    <td style="vertical-align:middle;text-align:center;"><button type="button" class="btn btn-success btn-sm">已通过</button></td>
+                                                {% else %}
+                                                    <td style="vertical-align:middle;text-align:center;"><button type="button" class="btn btn-warning btn-sm">不通过</button></td>
+                                                {% endif %}
+
+                                                <td class="time" style="vertical-align:middle;">{{ record.create_time }}</td>
+                                                <td style="vertical-align:middle;text-align:center;">
+<!--                                                    <a class="btn btn-success btn-sm" href="{{ url_for('smart_test.run',id=record.case_id) }}">运行</a>-->
+                                                    <a class="btn btn-warning btn-sm" href="{{ url_for('test_task.log',id=record.id) }}">日志</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+    <script src="https://cdn.bootcss.com/Chart.js/2.1.6/Chart.bundle.js"></script>
+<script type="text/javascript">
+
+    var data = {
+        labels: [
+            "passed",
+            "failed",
+            "errors",
+            "skiped",
+        ],
+        datasets: [
+            {
+                data: [1, 0, 0, 0],
+                backgroundColor: [
+                    "#10c469",
+                    "#f9c851",
+                    "#ff5b5b",
+                    "#98a6ad"
+                ],
+                hoverBackgroundColor: [
+                    "#10c469",
+                    "#f9c851",
+                    "#ff5b5b",
+                    "#98a6ad"
+                ]
+            }
+        ]
+    };
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myNewChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        // options: options
+    });
+    function myFunction() {
+  // 声明变量
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value;
+  table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
+ 
+  // 循环遍历所有列表项，并隐藏那些与搜索查询不匹配的项
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+</div>
+</body>
+</html>

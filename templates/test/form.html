@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+
+<form method="post">
+    {{ form.csrf_token}}
+    {{ form.username.label }} {{ form.username }}
+    {{ form.password.label }} {{ form.password }}
+    {{ form.cpassword.label }} {{ form.cpassword }}
+    {{ form.submit }}
+</form>
+<!--{{ form }}-->
+</body>
+</html>

@@ -1,0 +1,28 @@
+bootstrap-flask
+Flask
+Flask-APScheduler
+Flask-DebugToolbar
+Flask-Migrate==3.1.0
+Flask-Login
+Flask_Reuploaded==0.5.0
+Flask-SQLAlchemy==2.5.1
+flask-marshmallow
+flask-wtf
+flask_uploads
+marshmallow-sqlalchemy
+PyMySQL==1.0.2
+psutil==5.8.0
+Flask-Mail==0.9.1
+sqlparse==0.4.2
+captcha
+pillow
+python-dotenv==0.19.1
+webargs==8.0.1
+xlrd
+scipy
+xmind2testcase
+arrow
+requests
+loguru
+# from werkzeug.utils import secure_filename
+# from werkzeug.datastructures import FileStorage

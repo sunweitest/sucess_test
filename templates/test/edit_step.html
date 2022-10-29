@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑故事步骤</title>
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+        <div class='alert'>{{ message }}</div>
+    {% endfor %}
+
+    <div>
+        <form class="table" action="{{ url_for('story.edit_step', step_id=step.id) }}" method="post">
+
+            <div style="margin-top:10px" class="dropdown">
+                <label class="form-item-label">选择环境：</label>
+
+
+                <select name = "environment" style="width:600px;height:33px;" >
+                    <option value="{{ step.environment }}">{{ step.environment }}</option>
+                    <option value="测试">测试</option>
+                    <option value="预发">预发</option>
+                    <option value="线上">线上</option>
+                </select>
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">平台系统：</label>
+                <select name = "project" style="width:600px;height:33px;">
+
+                    <option value="{{ step.project }}">{{ step.project }}</option>
+
+                </select>
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">步骤名称：</label>
+                <input type="text"  name="name" style="width:600px;height:33px;" value="{{ step.name }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">接口地址：</label>
+                <input type="text" name="url" style="width:600px;height:33px;" value="{{ step.url }}" placeholder="请输入接口地址">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">请求方法：</label>
+                <select name = "method" style="width:600px;height:33px;" >
+
+                    <option value="{{ step.method }}">{{ step.method }}</option>
+                    <option value="get">GET</option>
+                    <option value="post">POST</option>
+                    <option value="put">PUT</option>
+                    <option value="patch">PATCH</option>
+
+                    <option value="delete">DELETE</option>
+                </select>
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">请求data：</label>
+                <input type="text" name="data" value="{{ step.request_data}}" style="width:600px;height:33px;" >
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">登录账号：</label>
+                <input type="text" name="username" value="{{ step.username }}" placeholder="账号" style="width:600px;height:33px;" >
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">登录密码：</label>
+
+                <input type="text" name="password" value="{{ step.password }}" placeholder="密码" style="width:600px;height:33px;">
+            </div>
+
+            <div style="margin-top:10px">
+                <label class="form-item-label">故事变量名：</label>
+
+                <input type="text" name="var" style="width:600px;height:33px;" value="{{ step.var_name }}" placeholder="故事内其它步骤共享的局部变量">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">获取返回值，设置为故事变量：</label>
+                <input type="text" name="expression" style="width:600px;height:33px;" value="{{ step.expression }}" placeholder=“比如：data.id，获取{data:{"id":1}}”>
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">预期结果：</label>
+                <input type="text" name="assertion" style="width:600px;height:33px;" value="{{ step.assertion }}" placeholder="验证返回值的预期结果是否相等">
+            </div>
+            <input class="submit btn btn-default" type="button" style="margin-top:10px;height:33px;" value="返回" onclick="location.href='{{ url_for ('story.step',story_id=step.story_id)}}'" >
+            <input class="submit btn btn-primary" type="submit" style="margin-top:10px;height:33px;" value="提交" >
+        </form>
+    </div>
+
+</body>
+</html>

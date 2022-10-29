@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>用例管理</title>
+    <link href="{{ url_for('static',filename='/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+
+{% include 'admin/common/header.html' %}
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 15px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+    html{height:100%;}
+body{min-height:100%;margin:0;padding:0;position:relative;background-color:#FCFCFC;}
+header{background-color: #fffffb;}
+main{padding-bottom:100px;background-color: #FCFCFC;}/* main的padding-bottom值要等于或大于footer的height值 */
+footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #fffffb;}
+.time{text-align: right;}
+    body {text-align: center;} table {margin: auto;} footer {text-align: center;}/*表格居中*/
+
+
+
+
+
+
+.alert{
+    color: #09b279;}
+</style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+            <div class="container-fluid">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <form class="layui-form" action="">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label" style="padding:6px 12px;">项目名称</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="roleName" placeholder="" class="layui-input">
+                                            </div>
+                                            <label class="layui-form-label" style="padding:6px 12px;">所属模块</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="roleCode" placeholder="" class="layui-input">
+                                            </div>
+                                            <label class="layui-form-label" style="padding:6px 12px;">用例名称</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="roleCode" placeholder="" class="layui-input">
+                                            </div>
+                                            <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="role-query">
+                                                <i class="layui-icon layui-icon-search"></i>
+                                                查询
+                                            </button>
+                                            <button type="reset" class="pear-btn pear-btn-md">
+                                                <i class="layui-icon layui-icon-refresh"></i>
+                                                重置
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        <div class="card">
+                            <div class="card-header" style="display:block;">
+<!--                                <div style="text-align:left;">-->
+<!--                                   <form action="{{ url_for('batch_test_bp.batch_test') }}" method="get">-->
+<!--                                        <input type="text" name="caseid" placeholder="模块名称">-->
+<!--                                    <input class="btn btn-success btn-sm"  type="submit" value="运行用例">-->
+
+<!--                                </div>-->
+                                {% for message in get_flashed_messages() %}
+                                <div class='alert'>{{ message }}</div>
+                                    {% endfor %}
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-md btn-sm">
+                                        <thead style="text-align:left;">
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>环境</th>
+                                                <th>项目</th>
+                                                <th>所属模块</th>
+                                                <th>用例名称</th>
+                                                <th>请求方式</th>
+                                                <th>接口地址</th>
+                                                <th style="text-align:center;">测试状态</th>
+                                                <th>创建人</th>
+                                                <th class="time" style="text-align:center;">添加时间</th>
+                                                <th class="time" style="text-align:center;">测试时间</th>
+                                                <th style="text-align:center;">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align:left;">
+                                            {% for case in case %}
+                                            <tr>
+                                               <td style="vertical-align:middle;text-align:center;">{{ case.id }}</td>
+                                                <td style="vertical-align:middle;">
+                                                    <button type="button" class="btn btn-default">{{ case.environment }}</button>
+                                                </td>
+                                                <td style="vertical-align:middle;">{{ case.projects }}</td>
+                                                <td style="vertical-align:middle;">{{ case.module }}</td>
+                                                <td style="vertical-align:middle;">{{ case.name }}</td>
+                                                <td style="vertical-align:middle;">{{ case.method }}</td>
+                                                <td style="vertical-align:middle;">{{ case.url|truncate(29) }}</td>
+                                                {% if case.state == '1' %}
+                                                    <td style="vertical-align:middle;text-align:center;"><button type="button" class="btn btn-default btn-sm">未执行</button></td>
+                                                {% elif case.state == '2' %}
+                                                    <td style="vertical-align:middle;text-align:center;"><button type="button" class="btn btn-success btn-sm">通过</button></td>
+                                                {% else %}
+                                                    <td style="vertical-align:middle;text-align:center;"><button type="button" class="btn btn-danger btn-sm">失败</button></td>
+                                                {% endif %}
+                                                <td style="vertical-align:middle;">{{ case.create_name }}</td>
+                                                <td class="time" style="vertical-align:middle;">{{ case.datetime }}</td>
+                                                <td class="time" style="vertical-align:middle;">{{ case.test_time }}</td>
+                                                <td style="vertical-align:middle;text-align:center;">
+                                                    <a class="btn btn-success btn-sm" href="{{ url_for('smart_test.run',id=case.id) }}">运行</a>
+                                                    <a class="btn btn-primary btn-sm" href="{{ url_for('smart_test.edit',case_id=case.id)}}">编辑</a>
+                                                    <a class="btn btn-warning btn-sm" href="{{ url_for('smart_test.log',id=case.id) }}">日志</a>
+                                                    <form class="btn btn-sm" method="post" action="{{ url_for('smart_test.delete',case_id=case.id) }}" style="margin-left:-11px">
+                                                        <input class="btn btn-danger btn-sm" type="submit" name="delete" value="删除" onclick="return confirm('确定要删除此条用例？')">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div style="text-align:center;margin-bottom:0rem;">
+                                            {% from 'bootstrap/pagination.html' import render_pagination %}
+                                            {{ render_pagination(pagination) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

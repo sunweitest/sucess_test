@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<meta name="robots" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Report Manage">
+
+	<!-- PAGE TITLE HERE -->
+
+    <title>Report Manage</title>
+    <!-- Custom Stylesheet -->
+    <link href="{{ url_for ('static',filename='bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 15px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+    html{height:100%;}
+body{min-height:100%;margin:0;padding:0;position:relative;background-color:#FCFCFC;}
+header{background-color: #fffffb;}
+main{padding-bottom:100px;background-color: #FCFCFC;}/* main的padding-bottom值要等于或大于footer的height值 */
+footer{position:absolute;bottom:0;width:100%;height:100px;background-color: #fffffb;}
+.time{text-align: right;}
+    body {text-align: center;} table {margin: auto;} footer {text-align: center;}/*表格居中*/
+
+
+
+
+
+
+.alert{
+    color: #09b279;}
+</style>
+</head>
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+
+    <div class="container-fluid">
+    <div class="row page-titles">
+<!--        <ol class="breadcrumb">-->
+<!--            <li class="breadcrumb-item active"><a href="{{ url_for ('admin.index')}}" style="width:110px;padding-top:0px;">报告管理</a></li>-->
+<!--            <li class="breadcrumb-item"><a href="javascript:void(0)" style="width:110px;padding-top:0px;">报告列表</a></li>-->
+<!--        </ol>-->
+    </div>
+    <!-- row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th style="width:80px;"><strong>序号</strong></th>
+                                    <th><strong>所属任务</strong></th>
+                                    <th><strong>创建人</strong></th>
+                                    <th><strong>创建日期</strong></th>
+                                    <th><strong>操作</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for report in report %}
+                                <tr>
+                                    <td><strong>{{ report.id}}</strong></td>
+                                    <td>{{ report.report_name}}</td>
+                                    <td>{{ report.create_name}}</td>
+                                    <td>{{ report.create_time }}</td>
+                                    <td>
+                                        <div>
+                                            <a class="btn btn-success btn-sm" href="{{ url_for('report.test_report',report_id=report.id,run_num=report.run_id)}}">详情</a>
+
+                                            <a class="btn btn-warning btn-sm" href="{{ url_for('report.delete',report_id=report.id)}}">删除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div style="text-align:center;">
+                                {% from 'bootstrap/pagination.html' import render_pagination %}
+                                {{ render_pagination(pagination) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试平台</title>
+<!--        <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">-->
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+.alert{color: #09b279;}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 15px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+    .table{text-align:center;}
+input{width: 700px;height:30px;}
+body{min-height:100%;margin:0;padding:0;position:relative;background-color: #FCFCFC;}
+.submit{width:80px;
+    height: 60px;}
+</style>
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+        <div class='alert'>{{ message }}</div>
+    {% endfor %}
+    <div>
+        <form class="table" method="post">
+
+            <div style="margin-top:10px" class="dropdown">
+                <label class="form-item-label">选择环境：</label>
+                <input type="text" name="environment" value="{{ case.environment }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">平台系统：</label>
+                <input type="text" required name="projects" value="{{ case.projects }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">所属模块：</label>
+                <input type="text" name="module" value="{{ case.module }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">用例名称：</label>
+                <input type="text" name="name" value="{{ case.name }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">接口地址：</label>
+                <input type="text" name="url" value="{{ case.url }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">请求方法：</label>
+                <input type="text" name="method" value="{{ case.method }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">请求报文：</label>
+                <input type="text" name="headers" value="{{ case.headers }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">请求数据：</label>
+                <input type="text" name="data" value="{{ case.data }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">登录账号：</label>
+                <input type="text" name="username" value="{{ case.username }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">登录密码：</label>
+                <input type="text" name="password" value="{{ case.password }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">执行之前：</label>
+                <input type="text" name="before" value="{{ case.before }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">执行之后：</label>
+                <input type="text" name="after" value="{{ case.after }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">提取响应值：</label>
+                <input type="text" name="category" placeholder=“比如：data.id，获取{'data':{'id':1}” value="{{ case.category }}">
+            </div>
+            <div style="margin-top:10px">
+                <label class="form-item-label">验证响应值：</label>
+                <input type="text" name="assertion" value="{{ case.assertion }}">
+
+                <label class="form-item-label">响应值类型：</label>
+            </div>
+            <input class="submit btn btn-default" type="button" style="margin-top:10px;height:33px;" value="取消" onclick="location.href='{{ url_for ('smart_test.apitest')}}'" >
+            <input class="submit btn btn-primary" type="submit" style="margin-top:10px;height:33px;" value="确定" onclick="location.href='{{ url_for ('smart_test.add_test')}}'">
+        </form>
+    </div>
+</body>
+</html>

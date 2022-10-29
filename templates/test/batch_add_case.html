@@ -1,0 +1,51 @@
+{% extends 'test/base.html' %}
+
+{% block head %}
+
+	<link href="{{ url_for ('static',filename='/bootstrap/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+	<!-- Style css -->
+    <link href="{{ url_for ('static',filename='/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+{% endblock %}
+{% block title %} 批量增加用例{% endblock %}
+{% block content %}
+
+<div style="margin-left:20px;margin-top:20px;">
+    <h5>批量导入平台表格</h5>
+</div>
+<a href="{{ url_for ('files.download')}}" class="btn btn-primary btn-sm" style="margin-left:10px;">模板下载</a>
+
+ <div class="card-body">
+    <form action="{{ url_for ('files.upload')}}" enctype="multipart/form-data" method="post">
+            <button type="submit" class="btn btn-primary btn-sm">导入</button>
+            <div class="form-group">
+                <input type="file" class="form-file-input form-control" name="file" required="required">
+            </div>
+        </form>
+</div>
+<hr/>
+
+    {% for message in get_flashed_messages() %}
+<div class='alert'>{{ message }}</div>
+    {% endfor %}
+
+<div style="margin-left:20px;margin-top:20px">
+    <h5>批量导入yapi表格</h5>
+</div>
+<div class="card-body">
+    <form action="{{ url_for ('batch_test_bp.batch_add')}}" enctype="multipart/form-data" method="post">
+        <div class="input-group mb-3">
+            <button class="btn btn-primary btn-sm" type="submit">导入</button>
+            <div class="form-group">
+                <input type="file" class="form-file-input form-control" name="file" required="required">
+            </div>
+        </div>
+    </form>
+    <hr/>
+    <div style='text-align: center;'>
+
+        <input class="submit btn btn-primary btn-sm" type="submit" value="返回" onclick="location.href='{{ url_for ('smart_test.apitest')}}'">
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

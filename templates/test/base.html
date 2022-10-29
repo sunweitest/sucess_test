@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %} base {% endblock %}</title>
+    <link href="{{  url_for ('static',filename='/css/chartist.min.css')}}" rel="stylesheet" >
+	<link href="{{ url_for ('static',filename='/css/nice-select.css')}}" rel="stylesheet">
+	<link href="{{ url_for ('static',filename='/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+	<!-- Style css -->
+    <link href="{{ url_for ('static',filename='/css/style.css')}}" rel="stylesheet">
+    {% endblock head %}
+</head>
+
+<body>
+<main>
+    {% block content %}{% endblock %}
+</main>
+{% block scripts %}
+     <script src="static/js/global.min.js"></script>
+	<script src="static/js/Chart.bundle.min.js"></script>
+	<script src="static/js/jquery.nice-select.min.js"></script>
+
+    <script src="static/js/jquery.peity.min.js"></script>
+	<!-- Apex Chart -->
+	<script src="static/js/apexchart.js"></script>
+	<script src="static/js/moment.js"></script>
+	<script src="static/js/bootstrap-datetimepicker.min.js"></script>
+	<!-- Dashboard 1 -->
+	<script src="static/js/dashboard-1.js"></script>
+    <script src="static/js/custom.min.js"></script>
+	<script src="static/js/deznav-init.js"></script>
+	<script src="static/js/demo.js"></script>
+    <script src="static/js/styleSwitcher.js"></script>
+{% endblock%}
+</body>
+</html>

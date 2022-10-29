@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="view" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+<link href="{{ url_for ('static',filename='/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+
+    <title>故事用例管理</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 style="text-align: center;">故事用例管理</h3>
+
+            </div>
+            <div style="text-align: center;">
+                <a class="btn btn-primary btn-sm" href="">编辑故事变量</a>
+                <textarea style="width:600px;height:59px;">{{ var_dict }}</textarea>
+            </div>
+<button class="submit btn btn-primary btn-sm"  onclick="location.href='{{ url_for ('story.manage')}}'">返回</button>
+<button class="submit btn btn-success btn-sm"  onclick="location.href='{{ url_for ('story.add_step', story_id=story_id)}}'">增加步骤</button>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+							<th><strong>顺序</strong></th>
+							<th><strong>步骤名称</strong></th>
+							<th><strong>提取的变量</strong></th>
+							<th><strong>STATUS</strong></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for step in steps %}
+                            <tr draggable="true">
+                                <td>{{ loop.index }}</td>
+
+                                <td>{{ step.name }}</td>
+
+								<td>{{ step.var_name }}</td>
+
+                                <td>{{ step.status }}</td>
+                                <td>
+                                <div>
+                                    <a class="btn btn-primary btn-sm" href="{{ url_for('story.edit_step',step_id=step.id) }}">编辑</a>
+                                    <a class="btn btn-warning btn-sm" href="{{ url_for('story.delete_step',step_id=step.id) }}">删除</a>
+                                </div></td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+
+					</table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>

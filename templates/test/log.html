@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>日志</title>
+    <style>
+    .pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
+
+    .showinfo{
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #eef1f8;
+        // width: 200px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        display: none;
+    }
+    .showinfo pre{
+        padding: 5px;
+        border: 1px solid #ccc;
+        margin:0;
+    }
+    table,th,td{
+        border:1px solid blue;
+    }
+</style>
+<script src="{{ url_for('static',filename='jquery3.6.0.js') }}"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $(".show-rough").mouseover(function(){
+            var left = $(this).offset().left + $(this).width() +20;//计算div显示位置
+            var top = $(this).offset().top + 20;
+            console.log($(this).text())
+            var str = $(this).text().replace(/'/g,"\"")
+            var _jsonDate = $.parseJSON($(this).text().replace(/\'/g,"\"").replace(/None/g, 'null'));
+            var showJson = syntaxHighlight(_jsonDate);
+            $("#show-info").css({"left":0,"top":0}).show();
+            $("#show-pre").html(showJson);
+        });
+        /*$(".show-rough").click(function(){
+            $("#show-info").hide().html();
+            $("#show-pre").html();
+        })*/
+        $("#show-info").click(function(){
+
+            $("#show-info").hide().html();
+            $("#show-pre").html();
+        })
+    });
+    //处理json数据，采用正则过滤出不同类型参数
+	function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+
+
+    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+};
+</script>
+</head>
+<body>
+<table>
+    <tbody>
+        <tr>
+            <td>测试日志记录</td>
+            <td>{{name}} {{url}} {{ time }}</td>
+        </tr>
+        <tr>
+            <td>请求头</td>
+            <td class="show-rough">{{ header}}</td>
+        </tr>
+        <tr>
+            <td>请求体</td>
+            <td class="show-rough">{{ body }}</td>
+        </tr>
+            <tr>
+            <td>响应体</td>
+            <td class="show-rough">{{ data }}</td>
+        </tr>
+    </tbody>
+</table>
+<div id="show-info" class="showinfo">
+    <pre id="show-pre">
+</pre>
+</div>
+<input class="submit" type="button" style="height:25px" value="返回" onclick="location.href='{{ url_for ('smart_test.apitest')}}'" >
+</body>
+</html>

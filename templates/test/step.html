@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+<link href="{{ url_for ('static',filename='/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+
+    <title>故事用例管理</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>故事用例管理</h3>
+            </div>
+            
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+							<th><strong>顺序</strong></th>
+							<th><strong>步骤名称</strong></th>
+							<th><strong>接口地址</strong></th>
+							<th><strong>请求方式</strong></th>
+							<th><strong>DATA</strong></th>
+							<th><strong>变量名称</strong></th>
+							<th><strong>获取变量表达式</strong></th>
+							<th><strong>预期结果</strong></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in steps %}
+                            <tr>
+                                {% for story in steps %}
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+								<td>{{ story.name }}</td>
+                                {% endfor %}
+                                <td><input type="button" value="编辑"></td>
+                                <td><input type="submit" value="提交"></td>
+                                <td><input type="button" value="新增" id="create"></td><br>
+
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+					</table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script>
+    $(document.reday(function(){
+
+      $('input[type="button"]').on('click', function(){
+        var $this = $(this),
+          edit_status = $this.attr('edit_status'),
+          status_value = edit_status && 1 == edit_status ? 0 : 1,
+          $td_arr = $this.parent().prevAll('td');
+        $this.val(1 == status_value ? '完成' : '编辑').attr('edit_status', status_value);
+        $.each($td_arr, function(){
+          var $td = $(this);
+          if(1 == status_value) {
+            $td.html('<input type="text" value="'+$td.html()+'">');
+          } else if(0 == status_value){
+            $td.html($td.find('input[type=text]').val());
+          }
+        });
+      });    
+      $('input[type="submit"]').on('click', function(){
+                
+                var td = event.srcElement.parentElement;
+                var rownum = td.parentElement.rowIndex;
+                // 获取html表格元素
+                var tab = document.getElementById("test");
+                
+                // 将每个单元格元素进行取值，并以字典形式传给后台
+                var data = {
+                    "ID":tab.rows[rownum].cells[0].innerHTML,
+                    "网络IP":tab.rows[rownum].cells[1].innerHTML,
+                    "地址":tab.rows[rownum].cells[2].innerHTML,
+                    "责任人":tab.rows[rownum].cells[3].innerHTML,
+                    "联系方式":tab.rows[rownum].cells[4].innerHTML,
+                    "地址":tab.rows[rownum].cells[5].innerHTML,
+                };
+                alert("提交成功！")
+                $.ajax({
+                    type: "post",
+                    url: "/story/step/",
+                    data: data,
+                    dataType: "json"
+                    });
+        });
+        $('input[id="create"]').on('click', function(){
+            var editTable = document.getElementById("tbody");
+
+            var tr = document.createElement("tr")
+            var td1 = document.createElement("td")
+            td1.innerHTML="input[type=text] /";
+
+            tr.appendChild(td1)
+            editTable.appendChild(tr)
+        });
+    })();
+</script>
+</body>
+</html>
