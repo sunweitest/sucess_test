@@ -74,11 +74,11 @@ def run():
             data = substitution_variable(var_dict=varDict, data=data_dict)
 
         if environment == '测试':
-            if project == '新奥e保后台':
-                url = f'https://api-test.ennejb.cn{url}'
+            if project == '后台':
+                url = f'https://api-test.com{url}'
         else:
             if project == '后台系统':
-                url = f'https://api.ennejb.cn{url}'
+                url = f'https://api.com{url}'
 
         try:
             request_header, request_data, res_data = test_api(url=url, projects=project,
